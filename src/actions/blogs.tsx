@@ -138,13 +138,13 @@ export const deleteABlogById = async (blogId: string) => {
 // 5. Update a blog
 
 export const updateABlogById = async (formData: FormData, blogId: string) => {
-    const tagsInput = formData.get('tagsInput')?.toString();
-    const tags = tagsInput?.split(',');
-
-    formData.delete('tagsInput');
-    formData.append('tags', JSON.stringify(tags));
-
-    console.log(formData);
+    
+    if (!blogId) {
+        return {
+            status: 'error',
+            message: 'Invalid Blog!'
+        }
+    }
 
     try {
         
@@ -154,6 +154,7 @@ export const updateABlogById = async (formData: FormData, blogId: string) => {
         });
 
         const responseData = await updateResponse.json();
+        console.log(responseData);
 
         if (!updateResponse.ok) {
             console.log(responseData);

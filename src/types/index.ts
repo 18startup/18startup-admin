@@ -4,8 +4,8 @@ export type BlogType = {
   title: string;
   overview: string;
   authorName: string;
-  tags: string[];
   description: string;
   slug: string;
+  tags: string[];
   updatedAt: string;
 };

@@ -56,7 +56,6 @@ const Newblog = () => {
         imageSizeinKB: 0
       });
       setUploadingLoad(false);
-      router.push('/admin');
     }}>
 
       <div className='w-full flex flex-col justify-start items-start gap-[0.6rem] my-[0.6rem] mt-[1.2rem]' id='coverImageBox'>
@@ -99,10 +98,10 @@ const Newblog = () => {
 
       <div className='w-full flex flex-col justify-start items-start gap-[0.6rem] my-[0.6rem]' id='descriptionBox'>
         <label htmlFor="description" className='text-[#F37335] text-left font-[500] text-[0.98rem]'>Description<span className='text-[#FF0000]'>*</span></label>
-        <ReactQuill modules={{ toolbar: [{ 'header': [2, 3, 4, 5, 6] }, { 'color': [] }, { 'background': [] }, 'bold', 'italic', 'underline', 'strike', 'link', { 'list': 'ordered'}, { 'list': 'bullet' }, { 'list': 'check' }, { 'script': 'sub'}, { 'script': 'super' }, 'clean'] }} className='w-full h-[85vh]' theme='snow' value={description} id='description' onChange={setDescription} />
+        <ReactQuill modules={{ toolbar: [{ 'header': [2, 3, 4, 5, 6] }, 'bold', 'italic', 'underline', 'strike', 'link', { 'list': 'ordered'}, { 'list': 'bullet' }, { 'script': 'sub'}, { 'script': 'super' }, 'clean'] }} className='w-full h-[85vh]' theme='snow' value={description} id='description' onChange={setDescription} />
       </div>
 
-      <div className='w-full flex flex-col justify-start items-start gap-[0.6rem] mt-[3.2rem]'>
+      <div className='w-full flex flex-col justify-start items-start gap-[0.6rem] mt-[3.2rem]' id='submitBox'>
         <button disabled={uploadingLoad ? true : false} type='submit' title='Upload new Blog' className='w-full py-[0.6rem] px-[0.7rem] flex justify-center items-center gap-[0.2rem] text-[0.98rem] border-[1.2px] border-[#F37335] rounded-[4px] bg-[#F37335] text-[#FFF] hover:bg-[#cb7a3c] focus-visible:bg-[#cb7a3c] outline-none cursor-pointer transition-all duration-300 disabled:bg-[#F3733540] disabled:text-[#FFFFFFF40] disabled:border-[#F3733540] disabled:cursor-not-allowed'>{uploadingLoad ? 'Uploading...' : 'Upload Blog'}</button>
       </div>
 

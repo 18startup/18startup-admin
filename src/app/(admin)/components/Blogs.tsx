@@ -10,9 +10,17 @@ import { BlogType } from '@/types';
 
 // Actions
 import { getAllBlogs } from '@/actions/blogs';
+
+// Components
 import DeleteBtn from './DeleteBtn';
 
+
+import { revalidatePath } from 'next/cache';
+import UpdateBlogSetting from './UpdateBlogSetting';
+
 const Blogs = async () => {
+    
+    revalidatePath('/');
 
     const allBlogs: BlogType[] = await getAllBlogs();
 
@@ -42,7 +50,7 @@ const Blogs = async () => {
                                         <h2 className='text-[1.12rem] text-left font-[500] text-[#494949]'>{blog.title}</h2>
                                         <p>{blog.overview ? blog.overview : 'No overview...'}</p>
                                         <div className='w-full flex justify-start items-center gap-[0.8rem] mt-[1rem]'>
-                                            <button type='button' title='Update Blog' className='text-[#F37335] outline-none font-[400] text-[0.9rem] py-[0.12rem] px-[0.48rem] rounded-[4px] border-[1.2px] border-[#F37335] focus-visible:bg-[#F37335] focus-visible:text-[#FFFFFF] hover:bg-[#F37335] hover:text-[#FFFF] transition-all duration-300'>Update</button>
+                                            <UpdateBlogSetting blogId={blog._id} blogSlug={blog.slug} />
                                             <DeleteBtn blogId={blog._id} />
                                         </div>
                                     </article>
