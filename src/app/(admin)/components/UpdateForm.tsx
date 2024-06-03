@@ -42,7 +42,6 @@ const UpdateForm = ({blogId, blogSlug, setBlogShow}: {blogId: string, blogSlug: 
             createToast('error', 'Issue fetching blog. Try again!', toastId);
         }
         setGettingBlogDetailsLoad(false);
-        setBlogShow(false);
     }
 
     useEffect(() => {
@@ -77,6 +76,7 @@ const UpdateForm = ({blogId, blogSlug, setBlogShow}: {blogId: string, blogSlug: 
             const updateResponse = await updateABlogById(formData, blogId);
             (updateResponse === undefined) ? createToast('success', 'Blog updated successfully!', toastId) : createToast('error', updateResponse.message, toastId);
             setUpdatingLoad(false);
+            setBlogShow(false);
         }}>
 
             <div className='w-full flex flex-col justify-start items-start gap-[0.4rem] my-[0.4rem]' id='titleBox'>
