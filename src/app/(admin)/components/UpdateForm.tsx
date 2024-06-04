@@ -19,7 +19,6 @@ const UpdateForm = ({blogId, blogSlug, setBlogShow}: {blogId: string, blogSlug: 
     const [gettingBlogDetailsLoad, setGettingBlogDetailsLoad] = useState(false);
 
     const [updateDetails, setUpdateDetails] = useState({
-        title: '',
         overview: '',
         authorName: '',
     })
@@ -33,7 +32,6 @@ const UpdateForm = ({blogId, blogSlug, setBlogShow}: {blogId: string, blogSlug: 
         if (blog) {
             createToast('success', 'Blog details fetched!', toastId);
             setUpdateDetails({
-                title: blog.title,
                 overview: blog.overview,
                 authorName: blog.authorName,
             });
@@ -78,11 +76,6 @@ const UpdateForm = ({blogId, blogSlug, setBlogShow}: {blogId: string, blogSlug: 
             setUpdatingLoad(false);
             setBlogShow(false);
         }}>
-
-            <div className='w-full flex flex-col justify-start items-start gap-[0.4rem] my-[0.4rem]' id='titleBox'>
-                <label htmlFor="title" className='text-[#F37335] text-left font-[500] text-[0.92rem]'>Title of Blog<span className='text-[#FF0000]'>*</span></label>
-                <input type="text" required aria-required placeholder='Enter title of blog' id='title' name='title' className='w-full outline-none pb-[0.4rem] border-b-[1.5px] border-b-[#49494940] text-[0.96rem] font-[400] focus:border-b-[#494949] transition-all duration-300' value={updateDetails.title} onChange={(e) => {setUpdateDetails({...updateDetails, [e.target.name]: e.target.value})}} />
-            </div>
 
             <div className='w-full flex flex-col justify-start items-start gap-[0.4rem] my-[0.4rem]' id='overviewBox'>
                 <label htmlFor="overview" className='text-[#F37335] text-left font-[500] text-[0.92rem]'>Overview of Blog<span className='text-[#FF0000]'>*</span></label>

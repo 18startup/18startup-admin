@@ -1,8 +1,11 @@
-import React from 'react'
+import React from 'react';
+import dynamic from 'next/dynamic';
+
+// Components
+const UpdateForm = dynamic(() => import('./UpdateForm'), { ssr: false });
 
 // React Icons
-import { MdOutlineClose } from 'react-icons/md'
-import UpdateForm from './UpdateForm'
+import { MdOutlineClose } from 'react-icons/md';
 
 const UpdateBlog = ({blogId, blogSlug, setBlogShow}: {blogId: string, blogSlug: string, setBlogShow: React.Dispatch<React.SetStateAction<boolean>>}) => {
   return (
