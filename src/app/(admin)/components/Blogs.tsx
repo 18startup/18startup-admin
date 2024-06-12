@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link';
+import Image from 'next/image';
 
 // React Icons
 import { IoIosAdd } from "react-icons/io";
@@ -13,7 +14,6 @@ import { getAllBlogs } from '@/actions/blogs';
 
 // Components
 import DeleteBtn from './DeleteBtn';
-
 
 import { revalidatePath } from 'next/cache';
 import UpdateBlogSetting from './UpdateBlogSetting';
@@ -44,12 +44,13 @@ const Blogs = async () => {
                         allBlogs.length === 0 ? (
                             <p>Empty!</p>
                         ) : (
-                            allBlogs.map((blog, index) => {
+                            allBlogs.map((blog) => {
                                 return (
-                                    <article className='w-full rounded-[6px] flex-shrink-0 flex-grow-0 px-[0.8rem] py-[1rem] border-[1.2px] border-[#494949] flex flex-col justify-start items-start gap-[0.6rem]' key={blog._id}>
+                                    <article className='w-full rounded-[6px] flex-shrink-0 flex-grow-0 px-[0.8rem] py-[1rem] border-[1.2px] border-[#494949] flex flex-col justify-start items-start gap-[0.4rem]' key={blog._id}>
+                                        <Image src={blog.coverImage} alt={blog.title} className="w-[320px] h-[auto] aspect-video rounded-[8px] bg-[#F3733530]" width={320} height={180} />
                                         <h2 className='text-[1.12rem] text-left font-[500] text-[#494949]'>{blog.title}</h2>
                                         <p>{blog.overview ? blog.overview : 'No overview...'}</p>
-                                        <div className='w-full flex justify-start items-center gap-[0.8rem] mt-[1rem]'>
+                                        <div className='w-full flex justify-start items-center gap-[0.8rem] mt-[0.6rem]'>
                                             <UpdateBlogSetting blogId={blog._id} blogSlug={blog.slug} />
                                             <DeleteBtn blogId={blog._id} />
                                         </div>

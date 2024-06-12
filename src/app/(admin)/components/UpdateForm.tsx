@@ -86,6 +86,9 @@ const UpdateForm = ({blogId, blogSlug, setBlogShow}: {blogId: string, blogSlug: 
             const toastId = createToast('loading', 'Updating blog...');
             setUpdatingLoad(true);
             const formData = new FormData(e.currentTarget);
+            if (!imageSelected.selected) {
+                formData.delete('coverImage');
+            }
             formData.append('description', blogDescUpdate);
             const updateResponse = await updateABlogById(formData, blogId);
             (updateResponse === undefined) ? createToast('success', 'Blog updated successfully!', toastId) : createToast('error', updateResponse.message, toastId);
@@ -102,9 +105,9 @@ const UpdateForm = ({blogId, blogSlug, setBlogShow}: {blogId: string, blogSlug: 
                 <div className='w-full flex flex-col justify-center items-center gap-[0.8rem] px-[0.6rem] py-[1rem] border-[1.5px] border-[#49494940] text-[#49494990] focus-within:border-[#494949] focus-within:text-[#494949] transition-all duration-300 rounded-[2px]'>
                 <input type="file" name='coverImage' className='opacity-0 overflow-hidden h-0' onChange={(e) => {
                     if (e.target.files && e.target.files[0]) {
-                    const name = e.target.files[0].name;
-                    const size = e.target.files[0].size;
-                    setImageSelected({imageName: name, selected: true, imageSizeinKB: size/1024});
+                        const name = e.target.files[0].name;
+                        const size = e.target.files[0].size;
+                        setImageSelected({imageName: name, selected: true, imageSizeinKB: size/1024});
                     }
                 }} id='coverImage' accept='.svg, .png, .jpeg, .jpg' title='Update cover image' />
                 <label htmlFor="coverImage" className='w-full flex flex-col justify-center items-center gap-[0.8rem] cursor-default sm:cursor-pointer'>

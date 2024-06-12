@@ -146,8 +146,6 @@ export const updateABlogById = async (formData: FormData, blogId: string) => {
         }
     }
 
-    console.log(formData);
-
     try {
         
         const updateResponse = await fetch(`${process.env.SERVER_HOST_URL}/api/v1/blogs/${blogId}`, {
@@ -156,7 +154,6 @@ export const updateABlogById = async (formData: FormData, blogId: string) => {
         });
 
         const responseData = await updateResponse.json();
-        console.log(responseData);
 
         if (!updateResponse.ok) {
             console.log(responseData);
