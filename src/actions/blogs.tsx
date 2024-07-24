@@ -5,7 +5,6 @@ import { BlogType } from "@/types";
 
 // Next.js
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 
 // 1. Fetch all blogs
 
@@ -67,6 +66,7 @@ export const addABlog = async (formData: FormData) => {
 
     formData.delete('tagsInput');
     formData.append('tags', JSON.stringify(tags));
+
 
     try {
         

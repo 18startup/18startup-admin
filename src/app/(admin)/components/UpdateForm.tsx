@@ -86,9 +86,19 @@ const UpdateForm = ({blogId, blogSlug, setBlogShow}: {blogId: string, blogSlug: 
             const toastId = createToast('loading', 'Updating blog...');
             setUpdatingLoad(true);
             const formData = new FormData(e.currentTarget);
+
             if (!imageSelected.selected) {
+
+                const response = await fetch('/emptyBlog.png', {method: 'GET'});
+                const emptyImageBlog = await response.blob();
+        
+                // Convert the blob to a File object
+                const file = new File([emptyImageBlog], 'emptyCoverImage.png', { type: emptyImageBlog.type });
+        
                 formData.delete('coverImage');
+                formData.append('coverImage', file);
             }
+            
             formData.append('description', blogDescUpdate);
             const updateResponse = await updateABlogById(formData, blogId);
             (updateResponse === undefined) ? createToast('success', 'Blog updated successfully!', toastId) : createToast('error', updateResponse.message, toastId);

@@ -34,7 +34,7 @@ const Newblog = () => {
 
       e.preventDefault();
 
-      if (imageSelected.imageSizeinKB > 2048) {
+      if (imageSelected.selected && imageSelected.imageSizeinKB > 2048) {
         createToast('error', 'Image should be less than 2MB.');
         return '';
       }
@@ -46,10 +46,28 @@ const Newblog = () => {
 
       const toastId = createToast('loading', 'Uploading blog...');
       setUploadingLoad(true);
+
       const formData = new FormData(e.currentTarget);
+
+      if (!imageSelected.selected) {
+
+        const response = await fetch('/emptyBlog.png', {method: 'GET'});
+        const emptyImageBlog = await response.blob();
+
+        // Convert the blob to a File object
+        const file = new File([emptyImageBlog], 'emptyCoverImage.png', { type: emptyImageBlog.type });
+
+        formData.delete('coverImage');
+        formData.append('coverImage', file);
+      }
+
       formData.append('description', description);
       const uploadResponse = await addABlog(formData);
-      (uploadResponse === undefined) ? createToast('success', 'Blog uploaded successfully!', toastId) : createToast('error', uploadResponse.message, toastId);
+
+      (uploadResponse === undefined) ? (
+        createToast('success', 'Blog uploaded successfully!', toastId),
+        router.push('/')
+      ) : createToast('error', uploadResponse.message, toastId);
       setImageSelected({
         imageName: '',
         selected: false,
@@ -66,7 +84,7 @@ const Newblog = () => {
               const size = e.target.files[0].size;
               setImageSelected({imageName: name, selected: true, imageSizeinKB: size/1024});
             }
-          }} id='coverImage' accept='.svg, .png, .jpeg, .jpg' required aria-required title='Upload cover image' />
+          }} id='coverImage' accept='.svg, .png, .jpeg, .jpg' title='Upload cover image' />
           <label htmlFor="coverImage" className='w-full flex flex-col justify-center items-center gap-[0.8rem] cursor-default sm:cursor-pointer'>
             <p className='text-center font-[500] text-[1.02rem]'>Upload Cover Image</p>
             <MdOutlineCloudUpload fontSize={36}/>
@@ -110,3 +128,17 @@ const Newblog = () => {
 }
 
 export default Newblog;
+
+/*
+
+File {
+  name: 'undefined',
+  lastModified: 1721837625187,
+  type: 'application/octet-stream',
+  size: 0,
+  Symbol(kHandle): Blob {},
+  Symbol(kLength): 0,
+  Symbol(kType): 'application/octet-stream'
+}
+
+*/

@@ -44,7 +44,7 @@ const Blogs = async () => {
                         allBlogs.length === 0 ? (
                             <p>Empty!</p>
                         ) : (
-                            allBlogs.map((blog) => {
+                            allBlogs.reverse().map((blog) => {
                                 return (
                                     <article className='w-full rounded-[6px] flex-shrink-0 flex-grow-0 px-[0.8rem] py-[1rem] border-[1.2px] border-[#494949] flex flex-col justify-start items-start gap-[0.4rem]' key={blog._id}>
                                         <Image src={blog.coverImage} alt={blog.title} className="w-[320px] h-[auto] aspect-video rounded-[8px] bg-[#F3733530]" width={320} height={180} />
